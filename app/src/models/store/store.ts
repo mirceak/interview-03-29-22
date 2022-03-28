@@ -1,16 +1,11 @@
-import { Ref } from 'vue';
-
-export interface BaseStore<StoreState, Dto> {
-  state: Ref<StoreState>;
-
-  useState: () => StoreState;
-
+interface Store<StoreState> {
+  state: StoreState;
   resetState: () => void;
-  getList: () => Promise<Dto[]>;
+}
+export interface BaseStore<StoreState> extends Store<StoreState> {
+  useState: () => StoreState;
 }
 
-export interface ListStore<Dto, StoreState> {
-  resetState: () => void;
-  getList: () => Promise<Dto[]>;
-  state: Ref<StoreState>;
+export interface ListStore<Dto, StoreState> extends Store<StoreState> {
+  getList: () => Promise<Dto[] | undefined>;
 }

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="row items-center justify-evenly"> {{ albumList?.length ? albumList[0].userId : 2 }} </q-page>
+  <q-page class="row items-center justify-evenly"> Welcome </q-page>
 </template>
 
 <script lang="ts">
@@ -16,13 +16,11 @@ export default {
 const albumStore = useAlbumStore();
 const photoStore = usePhotoStore();
 
-const albumList = ref<typeof albumStore.state.value.albums>([]);
-const photoList = ref<typeof photoStore.state.value.photos>([]);
+const albumList = ref<typeof albumStore.state.albums>([]);
+const photoList = ref<typeof photoStore.state.photos>([]);
 
 onBeforeMount(async () => {
   albumList.value = await albumStore.getList();
   photoList.value = await photoStore.getList();
-
-  console.log(albumList.value, photoList.value, this);
 });
 </script>

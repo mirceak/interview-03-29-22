@@ -1,30 +1,30 @@
 import { PhotoDto } from 'src/models/photo';
 import { BaseStore, ListStore } from 'src/models/store/store';
 import serviceApi from 'src/services/service-api';
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 
 interface PhotoStoreState {
-  readonly photos?: PhotoDto[];
+  photos?: PhotoDto[];
 }
 
-class PhotoStore implements BaseStore<PhotoStoreState, PhotoDto> {
+class PhotoStore implements BaseStore<PhotoStoreState> {
   useState = (): PhotoStoreState => {
     return {};
   };
 
   resetState = (): void => {
-    this.state.value = reactive(this.useState());
+    this.state = reactive(this.useState());
   };
 
-  state = ref();
+  state: PhotoStoreState;
 
-  getList = async (): Promise<PhotoDto[]> => {
-    this.state.value.photos = await serviceApi.photoGetListController();
-    return this.state.value.photos;
+  getList = async (): Promise<PhotoDto[] | undefined> => {
+    this.state.photos = await serviceApi.photoGetListController();
+    return this.state.photos;
   };
 
   constructor() {
-    this.resetState();
+    this.state = reactive(this.useState());
   }
 }
 
