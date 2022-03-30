@@ -24,6 +24,7 @@ class AlbumStore implements BaseStore<AlbumStoreState> {
         return {
           photos: [],
           expanded: false,
+          selected: false,
           ...album,
         };
       });
