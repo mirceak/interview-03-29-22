@@ -1,10 +1,10 @@
-import { AlbumDto } from 'src/models/album';
+import { Album, AlbumDto } from 'src/models/album';
 import { BaseStore, ListStore } from 'src/models/store/store';
 import serviceApi from 'src/services/service-api';
 import { reactive } from 'vue';
 
-interface AlbumStoreState {
-  albums?: AlbumDto[];
+export interface AlbumStoreState {
+  albums?: Album[];
 }
 
 class AlbumStore implements BaseStore<AlbumStoreState> {
@@ -19,7 +19,15 @@ class AlbumStore implements BaseStore<AlbumStoreState> {
   state: AlbumStoreState;
 
   getList = async (): Promise<AlbumDto[] | undefined> => {
-    this.state.albums = await serviceApi.albumGetListController();
+    this.state.albums = await serviceApi.albumGetListController().then((albumList) => {
+      return albumList.map((album): Album => {
+        return {
+          photos: [],
+          expanded: false,
+          ...album,
+        };
+      });
+    });
     return this.state.albums;
   };
 

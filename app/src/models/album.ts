@@ -7,5 +7,6 @@ export interface AlbumDto {
 }
 
 export interface Album extends AlbumDto {
-  photos?: Photo[];
+  photos: Photo[];
+  expanded: boolean;
 }

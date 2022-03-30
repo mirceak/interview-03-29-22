@@ -15,13 +15,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
+export default {
   name: 'MainLayout',
-
-  setup() {
-    return {};
-  },
-});
+};
 </script>
+
+<script lang="ts" setup></script>
+<style lang="scss">
+.q-layout {
+  min-height: 100% !important;
+}
+</style>
