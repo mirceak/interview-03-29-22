@@ -1,7 +1,7 @@
 import { AlbumDto } from 'src/models/album';
 import { Photo, PhotoDto } from 'src/models/photo';
 import { BaseStore, ListStore } from 'src/models/store/store';
-import serviceApi from 'src/services/service-api';
+import { photoGetListController } from 'src/services';
 import { reactive } from 'vue';
 import { AlbumStoreState } from './store-album';
 
@@ -19,7 +19,7 @@ class PhotoStore implements BaseStore<PhotoStoreState> {
   };
 
   getList = async (): Promise<PhotoDto[] | undefined> => {
-    this.state.photos = await serviceApi.photoGetListController().then((photoList) => {
+    this.state.photos = await photoGetListController().then((photoList) => {
       return photoList.map((photo): Photo => {
         return {
           ...photo,
